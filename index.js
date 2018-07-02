@@ -14,19 +14,19 @@ export class OrientationChangeProvider extends Component {
       orientation: isPortrait() ? "portrait" : "landscape"
     };
 
-    Dimensions.addEventListener("change", this.onChangeDimensions);
-  }
+    this.onChangeDimensions = () => {
+      if (isPortrait()) {
+        if (this.state.orientation !== "portrait") {
+          this.setState({orientation: "portrait"});
+        }
+      } else {
+        if (this.state.orientation !== "landscape") {
+          this.setState({orientation: "landscape"});
+        }
+      }
+    };
 
-  onChangeDimensions = () => {
-    if (isPortrait()) {
-      if (this.state.orientation !== "portrait") {
-        this.setState({orientation: "portrait"});
-      }
-    } else {
-      if (this.state.orientation !== "landscape") {
-        this.setState({orientation: "landscape"});
-      }
-    }
+    Dimensions.addEventListener("change", this.onChangeDimensions);
   }
 
   componentWillUnmount () {
